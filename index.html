@@ -1,14 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Virus Alert!</title>
+  <meta charset="UTF-8">
+  <title>Win $500 Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background: #f2f2f2;
+    }
+    .hidden {
+      display: none;
+    }
+    .color-btn {
+      padding: 15px 30px;
+      font-size: 20px;
+      margin: 10px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    #red { background: red; }
+    #green { background: green; }
+    #wheel {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 10px solid #333;
+      margin: 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: conic-gradient(#ffcc00 0% 20%, #00ccff 20% 40%, #ccff33 40% 60%, #ff3333 60% 80%, #cc33ff 80% 100%);
+    }
+    #spin-btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #prize-msg {
+      font-size: 24px;
+      margin-top: 20px;
+      color: #444;
+    }
+    #claim-btn {
+      padding: 15px 30px;
+      background-color: #28a745;
+      color: white;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body style="background-color:#fff0f0; font-family:Arial; text-align:center; padding-top:50px;">
-  <h1 style="color:red;">⚠️ Your Phone May Be Infected!</h1>
-  <p style="font-size:18px;">Suspicious activity has been detected on your Android device.</p>
-  <p style="font-size:16px;">Tap below to start a full device scan and remove threats immediately.</p>
-  <a href="https://daleelerah.info/pop-go/58165">
-    <button style="margin-top:20px; padding:15px 30px; background-color:red; color:white; font-size:18px; border:none; border-radius:5px;">Scan Now</button>
-  </a>
+<body>
+
+  <h1>🎁 Claim Your $500 Reward!</h1>
+  <p>Select a color to unlock your chance to win:</p>
+  <button id="red" class="color-btn">Red</button>
+  <button id="green" class="color-btn">Green</button>
+
+  <div id="game-area" class="hidden">
+    <h2>🎉 Now Spin the Wheel!</h2>
+    <div id="wheel">?</div>
+    <button id="spin-btn">Spin</button>
+    <div id="prize-msg" class="hidden"></div>
+    <a id="claim-btn" class="hidden" href="https://daleelerah.info/pop-go/58165">Claim Now</a>
+  </div>
+
+  <script>
+    const redBtn = document.getElementById('red');
+    const greenBtn = document.getElementById('green');
+    const gameArea = document.getElementById('game-area');
+    const wheel = document.getElementById('wheel');
+    const spinBtn = document.getElementById('spin-btn');
+    const prizeMsg = document.getElementById('prize-msg');
+    const claimBtn = document.getElementById('claim-btn');
+
+    const prizes = ["$100", "$200", "$300", "$500", "Try Again", "$150", "$250", "$50"];
+
+    function startGame() {
+      redBtn.style.display = "none";
+      greenBtn.style.display = "none";
+      gameArea.classList.remove("hidden");
+    }
+
+    redBtn.onclick = startGame;
+    greenBtn.onclick = startGame;
+
+    spinBtn.onclick = function () {
+      spinBtn.disabled = true;
+      wheel.innerText = "Spinning...";
+      setTimeout(() => {
+        const prize = prizes[Math.floor(Math.random() * prizes.length)];
+        wheel.innerText = prize;
+        prizeMsg.innerText = `🎉 Congratulations! You won ${prize}`;
+        prizeMsg.classList.remove("hidden");
+        claimBtn.classList.remove("hidden");
+      }, 2000);
+    };
+  </script>
+
 </body>
 </html>

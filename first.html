@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Win $500 Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background: #f2f2f2;
+    }
+    .color-btn {
+      padding: 15px 30px;
+      font-size: 20px;
+      margin: 10px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    #red { background: red; }
+    #green { background: green; }
+  </style>
+</head>
+<body>
+
+  <h1>🎁 Claim Your $500 Reward!</h1>
+  <p>Select a color to unlock your prize:</p>
+  <button id="red" class="color-btn">Red</button>
+  <button id="green" class="color-btn">Green</button>
+
+  <script>
+    // Redirect to your offer link on color click
+    const offerLink = "https://daleelerah.info/pop-go/58165";
+
+    document.getElementById('red').onclick = () => {
+      window.location.href = offerLink;
+    };
+
+    document.getElementById('green').onclick = () => {
+      window.location.href = offerLink;
+    };
+  </script>
+
+</body>
+</html>
