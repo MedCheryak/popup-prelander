@@ -5,97 +5,112 @@
   <title>🎉 Mystery Reward Challenge</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding-top: 60px;
-      background: linear-gradient(135deg, #ffecd2, #fcb69f);
-      height: 100vh;
       margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      text-align: center;
     }
+
+    .game-container {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+      max-width: 500px;
+      width: 90%;
+    }
+
     h1 {
       font-size: 32px;
-      color: #333;
+      margin-bottom: 10px;
     }
     p {
       font-size: 18px;
-      color: #444;
+      margin-bottom: 30px;
+      color: #ddd;
     }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
     .color-btn {
-      padding: 18px 40px;
-      font-size: 22px;
-      margin: 15px;
+      flex: 1;
+      min-width: 120px;
+      padding: 20px;
+      font-size: 20px;
       border: none;
+      border-radius: 15px;
       color: white;
       cursor: pointer;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.25s, box-shadow 0.25s;
+      font-weight: bold;
     }
-    .color-btn:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px rgba(0,0,0,0.3);
-    }
-    #red { background: crimson; }
-    #blue { background: royalblue; }
 
-    /* Special Green Button Glow */
-    #green {
-      background: seagreen;
-      animation: glow 1.5s infinite alternate;
+    .color-btn:hover {
+      transform: scale(1.15);
+      box-shadow: 0 0 30px rgba(255,255,255,0.4);
     }
-    @keyframes glow {
-      from {
-        box-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #00ff99;
-      }
-      to {
-        box-shadow: 0 0 20px #00ffaa, 0 0 40px #00ffaa, 0 0 60px #00ffaa;
-      }
+
+    #red { background: linear-gradient(45deg, #ff512f, #dd2476); }
+    #blue { background: linear-gradient(45deg, #36d1dc, #5b86e5); }
+
+    /* Special glowing green button */
+    #green {
+      background: linear-gradient(45deg, #00c853, #b2ff59);
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { box-shadow: 0 0 15px #00e676, 0 0 30px #00e676; }
+      to   { box-shadow: 0 0 30px #76ff03, 0 0 60px #76ff03; }
     }
 
     .loading {
       display: none;
       font-size: 20px;
-      color: #333;
       margin-top: 30px;
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
-  <h1>🎁 Unlock Your $500 Mystery Reward!</h1>
-  <p>One color hides the <b>real prize</b> 👀 Can you find it?</p>
+  <div class="game-container">
+<h1>🎯 3 Buttons, 1 Secret Jackpot – Can You Find It?</h1>
+    <p>Choose wisely... one button hides the prize 👀</p>
 
-  <button id="red" class="color-btn">🔴 Red</button>
-  <button id="green" class="color-btn">🔥 Secret Reward</button>
-  <button id="blue" class="color-btn">🔵 Blue</button>
+    <div class="btns">
+      <button id="red" class="color-btn">🔴 Red</button>
+      <button id="green" class="color-btn">🔥 Secret Reward</button>
+      <button id="blue" class="color-btn">🔵 Blue</button>
+    </div>
 
-  <div class="loading" id="loading">🔓 Unlocking your reward...</div>
+    <div class="loading" id="loading">🔓 Unlocking your reward...</div>
+  </div>
 
   <script>
-    const normalOffer = "https://daleelerah.info/pop-go/58165";  // Normal ad
-    const greenCPA = "https://your-cpa-offer-link.com";         // Replace with CPA link
+    const cpmOffer = "https://daleelerah.info/pop-go/58165"; // CPM link
     const loading = document.getElementById('loading');
 
-    document.getElementById('red').onclick = () => {
+    function redirect() {
       loading.style.display = "block";
       setTimeout(() => {
-        window.location.href = normalOffer;
+        window.location.href = cpmOffer;
       }, 1500);
-    };
+    }
 
-    document.getElementById('blue').onclick = () => {
-      loading.style.display = "block";
-      setTimeout(() => {
-        window.location.href = normalOffer;
-      }, 1500);
-    };
-
-    document.getElementById('green').onclick = () => {
-      loading.style.display = "block";
-      setTimeout(() => {
-        window.location.href = greenCPA;  // Special CPA redirect
-      }, 1500);
-    };
+    document.getElementById('red').onclick = redirect;
+    document.getElementById('blue').onclick = redirect;
+    document.getElementById('green').onclick = redirect;
   </script>
 
 </body>
