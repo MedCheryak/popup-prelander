@@ -2,152 +2,100 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Win $500 Game</title>
+  <title>🎉 Mystery Reward Challenge</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      padding-top: 50px;
-      background: #f2f2f2;
+      padding-top: 60px;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      height: 100vh;
+      margin: 0;
     }
-    h1 { color: #333; }
-    p { font-size: 18px; }
-
-    .box {
-      display: inline-block;
-      width: 120px;
-      height: 120px;
-      margin: 15px;
-      background: #ccc;
-      border-radius: 10px;
-      font-size: 20px;
-      font-weight: bold;
-      color: white;
-      line-height: 120px;
-      cursor: pointer;
-      transition: transform 0.3s, background 0.3s;
+    h1 {
+      font-size: 32px;
+      color: #333;
     }
-    .box:hover {
-      transform: scale(1.1);
+    p {
+      font-size: 18px;
+      color: #444;
     }
-    #gold { background: gold; color: black; }
-    #silver { background: silver; color: black; }
-    #bronze { background: peru; }
-
-    #result {
-      margin-top: 30px;
+    .color-btn {
+      padding: 18px 40px;
       font-size: 22px;
-      font-weight: bold;
-      display: none;
-    }
-
-    #claim {
-      display: none;
-      margin-top: 20px;
-      padding: 15px 25px;
-      font-size: 20px;
+      margin: 15px;
       border: none;
-      border-radius: 10px;
-      background: green;
       color: white;
       cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .color-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+    }
+    #red { background: crimson; }
+    #blue { background: royalblue; }
+
+    /* Special Green Button Glow */
+    #green {
+      background: seagreen;
+      animation: glow 1.5s infinite alternate;
+    }
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99, 0 0 30px #00ff99;
+      }
+      to {
+        box-shadow: 0 0 20px #00ffaa, 0 0 40px #00ffaa, 0 0 60px #00ffaa;
+      }
     }
 
-    #timer {
-      margin-top: 20px;
+    .loading {
+      display: none;
       font-size: 20px;
-      color: red;
-      font-weight: bold;
+      color: #333;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
 
-  <h1 id="title"></h1>
-  <p id="subtitle"></p>
+  <h1>🎁 Unlock Your $500 Mystery Reward!</h1>
+  <p>One color hides the <b>real prize</b> 👀 Can you find it?</p>
 
-  <div id="gold" class="box">?</div>
-  <div id="silver" class="box">?</div>
-  <div id="bronze" class="box">?</div>
+  <button id="red" class="color-btn">🔴 Red</button>
+  <button id="green" class="color-btn">🔥 Secret Reward</button>
+  <button id="blue" class="color-btn">🔵 Blue</button>
 
-  <div id="result"></div>
-  <button id="claim"></button>
-  <div id="timer"><span id="countdown">30</span></div>
+  <div class="loading" id="loading">🔓 Unlocking your reward...</div>
 
   <script>
-    const offerLink = "https://daleelerah.info/pop-go/58165";
-    const boxes = document.querySelectorAll(".box");
-    const result = document.getElementById("result");
-    const claimBtn = document.getElementById("claim");
-    const countdownEl = document.getElementById("countdown");
-    const title = document.getElementById("title");
-    const subtitle = document.getElementById("subtitle");
-    const timerEl = document.getElementById("timer");
+    const normalOffer = "https://daleelerah.info/pop-go/58165";  // Normal ad
+    const greenCPA = "https://your-cpa-offer-link.com";         // Replace with CPA link
+    const loading = document.getElementById('loading');
 
-    let clicked = false;
-
-    // Texts
-    const texts = {
-      en: {
-        title: "💵 Win up to $500 Instantly!",
-        subtitle: "Open a box now and claim your reward before time runs out ⏳",
-        result: "💵 Congratulations! You won $500!",
-        claim: "Claim Now",
-        timer: "⏳ Hurry! Offer expires in "
-      },
-      fa: {
-        title: "💵 برنده فوری تا ۵۰۰ دلار شوید!",
-        subtitle: "یکی از جعبه‌ها را باز کنید و جایزه خود را قبل از پایان زمان دریافت کنید ⏳",
-        result: "💵 تبریک! شما برنده ۵۰۰ دلار شدید!",
-        claim: "دریافت جایزه",
-        timer: "⏳ عجله کنید! این پیشنهاد تا "
-      }
+    document.getElementById('red').onclick = () => {
+      loading.style.display = "block";
+      setTimeout(() => {
+        window.location.href = normalOffer;
+      }, 1500);
     };
 
-    // Detect browser language
-    const userLang = navigator.language || navigator.userLanguage;
-    const isPersian = userLang.startsWith("fa");
-    const lang = isPersian ? texts.fa : texts.en;
-
-    // Apply text
-    title.innerHTML = lang.title;
-    subtitle.innerHTML = lang.subtitle;
-    result.innerHTML = lang.result;
-    claimBtn.innerHTML = lang.claim;
-    timerEl.innerHTML = lang.timer + `<span id="countdown">30</span> seconds`;
-
-    if (isPersian) {
-      document.body.setAttribute("dir", "rtl");
-    }
-
-    // Box click logic
-    boxes.forEach(box => {
-      box.addEventListener("click", () => {
-        if (clicked) return;
-        clicked = true;
-
-        box.style.background = "green";
-        box.textContent = "🎉";
-
-        result.style.display = "block";
-        claimBtn.style.display = "inline-block";
-      });
-    });
-
-    claimBtn.onclick = () => {
-      window.location.href = offerLink;
+    document.getElementById('blue').onclick = () => {
+      loading.style.display = "block";
+      setTimeout(() => {
+        window.location.href = normalOffer;
+      }, 1500);
     };
 
-    // Countdown timer
-    let time = 30;
-    const timer = setInterval(() => {
-      time--;
-      countdownEl.textContent = time;
-      if (time <= 0) {
-        clearInterval(timer);
-        window.location.href = offerLink;
-      }
-    }, 1000);
+    document.getElementById('green').onclick = () => {
+      loading.style.display = "block";
+      setTimeout(() => {
+        window.location.href = greenCPA;  // Special CPA redirect
+      }, 1500);
+    };
   </script>
 
 </body>
